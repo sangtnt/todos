@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import {Navbar, Nav, Form, FormControl, Button} from 'react-bootstrap'
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 class Menu extends Component {
     render() {
         return(
-        <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">Todos App</Navbar.Brand>
+        <Navbar className="menu" bg="light" expand="lg">
+            <Navbar.Brand><span style={{color: "white"}}>Todos App</span></Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link><Link to="/">Home</Link></Nav.Link>
-                    <Nav.Link><Link to="/another">Another</Link></Nav.Link>
+                    <Nav.Link><NavLink className="menu-select" activeClassName="menu-active" exact to="/">Home</NavLink></Nav.Link>
+                    <Nav.Link><NavLink className="menu-select" activeClassName="menu-active" to="/todos/1">Todos</NavLink></Nav.Link>
+                    <Nav.Link><NavLink className="menu-select" activeClassName="menu-active" to="/another">Another</NavLink></Nav.Link>
                 </Nav>
                 <Form inline>
                     <FormControl type="text" placeholder="Search" className="mr-sm-2" />

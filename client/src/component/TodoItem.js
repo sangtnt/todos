@@ -7,9 +7,12 @@ class TodoItem extends Component {
             classItem+=' checked';
         }
         return (
-            <li onClick={this.props.onClick} className={classItem}>
-                {this.props.item.title}<br/>
-            </li>
+            <div className="item-block">
+                <li onClick={this.props.onClick} className={classItem}>
+                    {this.props.item.title}
+                </li>
+                <div onClick={this.props.deleteItem} class="delete-item">X</div>
+            </div>
         );
     }
 }
