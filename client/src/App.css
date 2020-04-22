@@ -1,0 +1,36 @@
+body{
+    height: 90vh;
+    width: 100vw;
+}
+.container-todo{
+    height: 80vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.todoList{
+    border: 1px solid rgb(0, 141, 141);
+    padding: 1.1rem;
+    list-style: none;
+    font-size: 1.1rem;
+}
+.todoList .todo-item{
+    border-bottom: 1px solid rgba(0, 141, 141, 0.562);
+    padding: 5px 0px;
+    cursor: pointer;
+}
+.todoList li input{
+    outline: none;
+    border: none;
+}
+.pagination{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+.checked{
+    text-decoration: line-through;
+    color: rgb(124, 124, 124);
+    font-style: italic;
+}

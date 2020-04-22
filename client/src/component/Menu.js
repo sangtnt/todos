@@ -1,26 +1,23 @@
 import React, { Component } from 'react';
-let axios = require('axios');
-
+import {Navbar, Nav, Form, FormControl, Button} from 'react-bootstrap'
+import {Link} from 'react-router-dom';
 class Menu extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            name:""
-        }
-    }
-    componentDidMount(){
-        axios.get('/api/todoData')
-        .then(object=>this.setState({
-            name: object.data.name
-        }))
-    }
     render() {
-        let {name} = this.state;
-        console.log(name);
-        return (
-            <div>
-                sang
-            </div>
+        return(
+        <Navbar bg="light" expand="lg">
+            <Navbar.Brand href="#home">Todos App</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                    <Nav.Link><Link to="/">Home</Link></Nav.Link>
+                    <Nav.Link><Link to="/another">Another</Link></Nav.Link>
+                </Nav>
+                <Form inline>
+                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                    <Button variant="outline-success">Search</Button>
+                </Form>
+            </Navbar.Collapse>
+        </Navbar>
         );
     }
 }
