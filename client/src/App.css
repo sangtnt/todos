@@ -1,0 +1,139 @@
+.body-todo{
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+.container-todo{
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.todoList{
+    border: 1px solid rgb(0, 141, 141);
+    padding: 1.1rem;
+    list-style: none;
+    width: 350px;
+    height: 500px;
+    font-size: 1.1rem;
+    border-radius: 10px; 
+    background-image: radial-gradient(circle, #b0b0b0, #9c9c9c, #898989, #767676, #646464);
+    box-shadow: 2px 3px 7px black;
+    text-shadow: 1px 1px 5px black;
+    color: rgb(199, 214, 255);
+    position: relative;
+}
+.todoList .todo-item{
+    border-bottom: 1px solid rgba(0, 141, 141, 0.562);
+    padding: 5px 0px;
+    margin: 0px;
+    cursor: pointer;
+    width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 1s linear;
+}
+.item-block{
+    display: flex;
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+}
+.delete-item{
+    height: 20px;
+    width: 20px;
+    margin-top: 5px;
+    text-align: center;
+    font-size: 14px;
+    position: absolute;
+    display: inline;
+    right: 0;
+    color: black;
+    cursor: pointer;
+    transition: all .2s ease-in;
+}
+.delete-item:hover{
+    color: red;
+    transform: scale(2);
+}
+.todoList li input{
+    outline: none;
+    border: none;
+    width: 100%;
+    border-radius: 10px;
+    padding: 0px 10px;
+    height: 30px;
+}
+.pagi-container{
+    display: flex;
+    justify-content: center;
+}
+.pagination{
+    position: absolute;
+    bottom: 0;
+}
+.checked{
+    text-decoration: line-through;
+    color: rgb(58, 58, 58);
+    font-style: italic;
+    text-shadow: none;
+}
+.page-item{
+    display: inline;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid rgb(121, 121, 121);
+    margin: 0 1px;
+    border-radius: 3px;
+}
+.page-item .btn-change-page{
+    outline: none;
+    border: none;
+    background-color: white;
+    
+    transition: all 1s linear;
+}
+.active-page .btn-change-page{
+    color: black; 
+    background-color: red;
+}
+.menu{
+    background-image: linear-gradient(to top, #393939, #4d4d4d, #636363, #797979, #909090);
+}
+.menu-select{
+    color: white;
+    text-decoration: none;
+}
+.menu-select:hover{
+    color:gray;
+}
+.menu-active{
+    color:gray;
+}
+.control-btn{
+    display: flex;
+    margin-bottom: 5px;
+    justify-content: space-evenly;
+}
+.control-btn .btn{
+    background-color: red;
+    background-color: blueviolet;
+    color: white;
+    box-shadow: 1px -1px 10px black;
+    width: auto;
+}
+.control-btn .btn:focus{
+    opacity: 0.5;
+}
+.control-btn .btn-all{
+    background-color: rgb(56, 56, 56);
+}
+.control-btn .btn-active{
+    background-color: rgb(95, 190, 0);
+}
+.control-btn .btn-complete{
+    background-color: gray;
+}

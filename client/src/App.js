@@ -1,12 +1,19 @@
 import React from 'react';
-import './App.css';
 import Menu from "./component/Menu";
-
+import {BrowserRouter as Router, Route, Switch, Link} from "react-router-dom"
+import TodoList from "./component/TodoList";
+import Another from "./component/Another"
+import './css/bootstrap.min.css';
+import './App.css';
 function App() {
   return (
-    <div>
+    <Router>
       <Menu/>
-    </div>
+      <Switch>
+        <Route exact path="/todos/:page" component={TodoList} />
+        <Route path="/another" component={Another} />
+      </Switch>
+    </Router>
   );
 }
 
