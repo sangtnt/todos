@@ -7,7 +7,8 @@ class TodoList extends Component {
     constructor(props){
         super(props);
         this.state={
-            todoList:[]
+            todoList:[],
+            page:1
         }
         this.onClickItem= this.onClickItem.bind(this);
         document.body.classList.add("body-todo");
@@ -15,10 +16,15 @@ class TodoList extends Component {
         this.findEnd= this.findEnd.bind(this);
         this.findStart=this.findStart.bind(this);
         this.deleteItem=this.deleteItem.bind(this);
+        this.controlItem= this.controlItem.bind(this);
+        this.changePage= this.changePage.bind(this);
     }
     componentDidMount(){
         this.setState({
             todoList: [
+                ...todoData
+            ],
+            todos: [
                 ...todoData
             ]
         })
@@ -44,6 +50,34 @@ class TodoList extends Component {
                 ]
             })
         }
+    }
+    controlItem(event){
+        let name= event.target.name;
+        let {todos}=this.state;
+        if (name==="all"){
+            this.setState({
+                todoList : todos.filter(function(item){
+                    return item;
+                })
+            })
+        }
+        else if(name==="active"){
+            this.setState({
+                todoList : todos.filter(function(item){
+                return item.isChecked===false;
+                })
+            })
+        }
+        else{
+            this.setState({
+                todoList : todos.filter(function(item){
+                return item.isChecked===true;
+                })
+            })
+        }
+        this.setState({
+            page:1
+        })
     }
     onClickItem(item){
         return (event)=>{
@@ -85,12 +119,17 @@ class TodoList extends Component {
         };
         return end
     }
+    changePage(event){
+        this.setState({
+            page: event.target.value
+        })
+    }
     render() {
+        let {todoList, page}=this.state;
         //Calculate totalPage of pagination
         let quantity=10;
-        let totalPage=Math.ceil(todoData.length/quantity);
+        let totalPage=Math.ceil(todoList.length/quantity);
         //Check page
-        let {page}=this.props.match.params;
         if (page===undefined||page<1){
             page=1;
         }
@@ -101,18 +140,22 @@ class TodoList extends Component {
         let start= this.findStart(quantity, page);
         let end= this.findEnd(start, quantity);
         //create list from start to end
-        let {todoList}=this.state;
         let list=[...todoList.slice(start,end)];
         return (
             <div className="cover-todo">
             <div className="container-todo">
                 <ul className="todoList">
+                    <li className="control-btn">
+                        <input name="all" onClick={this.controlItem} className="btn btn-all" value="all" type="button"/>
+                        <input name="active" onClick={this.controlItem} className="btn btn-active" value="active" type="button"/>
+                        <input name="complete" onClick={this.controlItem} className="btn btn-complete" value="complete" type="button"/>
+                    </li>
                     <li>
                         <input onKeyUp={this.submitItem} name="newItem" refs="newItem" className="input-item" placeholder="Enter new item"/>
                     </li>
                     <List items={list} render={(item)=><TodoItem deleteItem={this.deleteItem(item)} onClick={this.onClickItem(item)} key={item.id} item={item} />}/>
                     <li className="pagi-container">
-                        <Pagination activeNum={page} totalPage={totalPage}/>
+                        <Pagination changePage={this.changePage} activeNum={page} totalPage={totalPage}/>
                     </li>
                 </ul>
             </div>

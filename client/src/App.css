@@ -14,7 +14,7 @@
     padding: 1.1rem;
     list-style: none;
     width: 350px;
-    height: 460px;
+    height: 500px;
     font-size: 1.1rem;
     border-radius: 10px; 
     background-image: radial-gradient(circle, #b0b0b0, #9c9c9c, #898989, #767676, #646464);
@@ -88,18 +88,17 @@
     border: 1px solid rgb(121, 121, 121);
     margin: 0 1px;
     border-radius: 3px;
-    background-color: rgb(78, 78, 78);
 }
-.page-item a{
-    color: white;
-    text-decoration: none;
-    display: block;
+.page-item .btn-change-page{
+    outline: none;
+    border: none;
+    background-color: white;
+    
+    transition: all 1s linear;
 }
-.active-page{
-    background-color: rgba(205, 210, 255, 0.603);
-}
-.active-page a{
+.active-page .btn-change-page{
     color: black; 
+    background-color: red;
 }
 .menu{
     background-image: linear-gradient(to top, #393939, #4d4d4d, #636363, #797979, #909090);
@@ -113,4 +112,28 @@
 }
 .menu-active{
     color:gray;
+}
+.control-btn{
+    display: flex;
+    margin-bottom: 5px;
+    justify-content: space-evenly;
+}
+.control-btn .btn{
+    background-color: red;
+    background-color: blueviolet;
+    color: white;
+    box-shadow: 1px -1px 10px black;
+    width: auto;
+}
+.control-btn .btn:focus{
+    opacity: 0.5;
+}
+.control-btn .btn-all{
+    background-color: rgb(56, 56, 56);
+}
+.control-btn .btn-active{
+    background-color: rgb(95, 190, 0);
+}
+.control-btn .btn-complete{
+    background-color: gray;
 }

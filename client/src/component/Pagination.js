@@ -3,6 +3,13 @@ import {Link} from "react-router-dom"
 class Pagination extends Component {
     render() {
         let {activeNum, totalPage}= this.props;
+        if (totalPage===0){
+            return(
+                <div class="pagination">
+                    <div className="page-item active-page"><input type="button" value={0}/></div>
+                </div>
+            );
+        }
         let maxPage=5;
         let bigPage=Math.ceil(activeNum/maxPage);
         let start=(bigPage-1)*maxPage+1;
@@ -22,7 +29,7 @@ class Pagination extends Component {
                         if (activeNum==page){
                             classPage+=" active-page";
                         }
-                        return <div className={classPage}><a href={"/todos/"+page}>{page}</a></div>
+                        return <div className={classPage}><input className="btn-change-page" type="button" value={page} onClick={this.props.changePage}/></div>
                     })
                 }
             </div>
