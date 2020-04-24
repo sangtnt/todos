@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import todoData from "../todo.json";
 import List from "./List";
 import TodoItem from "./TodoItem";
 import Pagination from "./Pagination";
+import axios from "axios";
 class TodoList extends Component {
     constructor(props){
         super(props);
@@ -20,14 +20,17 @@ class TodoList extends Component {
         this.changePage= this.changePage.bind(this);
     }
     componentDidMount(){
-        this.setState({
-            todoList: [
-                ...todoData
-            ],
-            todos: [
-                ...todoData
-            ]
-        })
+        axios.get('/todoData')
+        .then(todoData=>{
+            this.setState({
+                todoList: [
+                    ...todoData.data.todoData               
+                ],
+                todos: [
+                    ...todoData.data.todoData
+                ]
+            })
+        });
     }
     componentWillUnmount(){
         document.body.classList.remove("body-todo");
@@ -37,18 +40,27 @@ class TodoList extends Component {
             var date= new Date();
             var time=date.getTime();
             let value=event.target.value;
-            let {todoList}=this.state;
-            this.setState({
-                todoList:[
-                    {
-                        id:'',
-                        title: value,
-                        isChecked: false,
-                        timeCreate: time
-                    },
-                    ...todoList
-                ]
+            let newItem={
+                title: value,
+                isChecked: false,
+                timeCreate: time
+            }
+            axios.post('/todoData/insert', newItem)
+            .then(res => console.log(res.data))
+            .catch(err=>{
+                alert("post fail");
             })
+            axios.get('/todoData')
+            .then(todoData=>{
+                this.setState({
+                    todoList: [
+                        ...todoData.data.todoData               
+                    ],
+                    todos: [
+                        ...todoData.data.todoData
+                    ]
+                })
+            });
         }
     }
     controlItem(event){
@@ -113,9 +125,10 @@ class TodoList extends Component {
         return start;
     }
     findEnd(start, quantity){
+        let {todoList} = this.state;
         let end= start + quantity;
-        if (end>todoData.length){
-            end=start+todoData.length%start;
+        if (end>todoList.length){
+            end=todoList.length;
         };
         return end
     }
@@ -146,12 +159,12 @@ class TodoList extends Component {
             <div className="container-todo">
                 <ul className="todoList">
                     <li className="control-btn">
-                        <input name="all" onClick={this.controlItem} className="btn btn-all" value="all" type="button"/>
+                        <input name="all" onClick={this.controlItem} className="btn btn-all" value="all" type="button"/> 
                         <input name="active" onClick={this.controlItem} className="btn btn-active" value="active" type="button"/>
                         <input name="complete" onClick={this.controlItem} className="btn btn-complete" value="complete" type="button"/>
                     </li>
                     <li>
-                        <input onKeyUp={this.submitItem} name="newItem" refs="newItem" className="input-item" placeholder="Enter new item"/>
+                    <input onKeyUp={this.submitItem} name="newItem" refs="newItem" className="input-item" placeholder="Enter new item"/>
                     </li>
                     <List items={list} render={(item)=><TodoItem deleteItem={this.deleteItem(item)} onClick={this.onClickItem(item)} key={item.id} item={item} />}/>
                     <li className="pagi-container">
