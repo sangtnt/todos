@@ -93,31 +93,41 @@ class TodoList extends Component {
     }
     onClickItem(item){
         return (event)=>{
-            let {todoList} = this.state;
-            let index= todoList.indexOf(item);
-            this.setState({
-                todoList: [
-                    ...todoList.slice(0,index),
-                    {
-                        ...item,
-                        isChecked: !item.isChecked
-                    },
-                    ...todoList.slice(index+1)
-                ]
+            item.isChecked=!item.isChecked;
+            axios.post('/todoData/update/'+item._id, item)
+            .then(res=>{
+                console.log(res);
+                axios.get('/todoData')
+                .then(todoData=>{
+                    this.setState({
+                        todoList: [
+                            ...todoData.data.todoData               
+                        ],
+                        todos: [
+                            ...todoData.data.todoData
+                        ]
+                    })
+            });
             })
+            .catch(err=> console.log(err));
         }
     }
     deleteItem(item){
         return (event)=>{
-            let {todoList} = this.state;
-            let list=[...todoList];
-            let index= todoList.indexOf(item);
-            list.splice(index,1);
-            this.setState({
-                todoList: [
-                    ...list
-                ]
-            })
+            axios.get('/todoData/delete/'+item._id)
+            .then(console.log('Deleted'))
+            .catch(err=>console(err));
+            axios.get('/todoData')
+            .then(todoData=>{
+                this.setState({
+                    todoList: [
+                        ...todoData.data.todoData               
+                    ],
+                    todos: [
+                        ...todoData.data.todoData
+                    ]
+                })
+            });
         }
     }
     findStart(quantity, page){
